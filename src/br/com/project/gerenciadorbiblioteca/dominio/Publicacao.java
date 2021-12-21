@@ -3,7 +3,7 @@ package br.com.project.gerenciadorbiblioteca.dominio;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class Publicacao {
+public class Publicacao implements Comparable<Publicacao> {
 
     private String titulo;
     private String descricao;
@@ -57,5 +57,11 @@ public class Publicacao {
                 ", autores=" + autores +
                 ", quantPaginas=" + quantPaginas +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Publicacao p) {
+        return this.getTitulo().compareToIgnoreCase(p.getTitulo());
     }
 }
