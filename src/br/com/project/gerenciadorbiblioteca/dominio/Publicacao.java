@@ -65,9 +65,9 @@ public class Publicacao implements Comparable<Publicacao> {
                 ", descricao='" + descricao + '\'' +
                 ", autores=" + autores +
                 ", quantPaginas=" + quantPaginas +
+                ", disponivel=" + disponivel +
                 '}';
     }
-
 
     @Override
     public int compareTo(Publicacao p) {

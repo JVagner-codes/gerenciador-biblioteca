@@ -16,7 +16,7 @@ public class Main {
         Publicacao artigo1 = new Artigo("Sistema da Informação", "Uma pesquisa", 125);
         artigo1.adicionarAutores("Teste");
         Publicacao livro2 = new Livro("ABC dos códigos", "O básico", 220);
-        livro1.adicionarAutores("Teste");
+        livro2.adicionarAutores("Teste");
         Publicacao artigo2 = new Artigo("Uma inovação", "Tecnológica", 125);
         artigo2.adicionarAutores("Teste");
 
@@ -29,5 +29,13 @@ public class Main {
 
         System.out.println("O livro Clean code está disponível: " +
                 estoque.estaDisponivel("Clean code", "Robert Cecil Martin"));
+
+        System.out.println(estoque.retirarPorEmprestimo("Uma inovação", "Teste"));
+
+        System.out.println("\n----- Atualização no sistema -----\n");
+
+        estoque.getPublicacoesRegistradasNoSistema().forEach(System.out::println);
+
+        System.out.println(estoque.devolucaoPublicacao("Uma inovação", "Teste"));
     }
 }
