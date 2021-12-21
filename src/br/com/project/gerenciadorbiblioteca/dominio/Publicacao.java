@@ -9,12 +9,14 @@ public class Publicacao implements Comparable<Publicacao> {
     private String descricao;
     private Set<String> autores;
     private int quantPaginas;
+    private boolean disponivel;
 
     public Publicacao(String titulo, String descricao, int quantPaginas) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.autores = new LinkedHashSet<>();
         this.quantPaginas = quantPaginas;
+        this.disponivel = true;
     }
 
     public String getTitulo() {
@@ -47,6 +49,14 @@ public class Publicacao implements Comparable<Publicacao> {
 
     public void setQuantPaginas(int quantPaginas) {
         this.quantPaginas = quantPaginas;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 
     @Override

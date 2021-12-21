@@ -6,42 +6,44 @@ import java.util.stream.Collectors;
 
 public class Estoque {
 
-    private List<Publicacao> publicacoesEmEstoque;
-    private List<Publicacao> publicacoesRetiradas;
+    private List<Publicacao> publicacoesRegistradasNoSistema;
 
     public Estoque() {
-        this.publicacoesEmEstoque = new ArrayList<>();
-        this.publicacoesEmEstoque = new ArrayList<>();
+        this.publicacoesRegistradasNoSistema = new ArrayList<>();
     }
 
     public void adicionaPublicacao(Publicacao publicacao) {
-        this.publicacoesEmEstoque.add(publicacao);
+        this.publicacoesRegistradasNoSistema.add(publicacao);
     }
 
-    public String retirarPorEmprestimo(String titulo, String autor) {
-        Publicacao publicacaoAEmprestar = publicacoesEmEstoque.stream()
-                .filter(publicacao -> publicacao.getTitulo().equals(titulo)
-                        && publicacao.getAutores().contains(autor))
-                .collect(Collectors.toList())
-                .get(0);
-
-        publicacoesRetiradas.add(publicacaoAEmprestar);
-        publicacoesEmEstoque.remove(publicacaoAEmprestar);
-
-        return "Retirada para empréstimo:  " + publicacaoAEmprestar;
+    public String retirarPorEmprestimo(String titulo, String autor) throws Exception {
+        Publicacao publicacaoAEmprestar = get(titulo, autor);
+        if (publicacaoAEmprestar.isDisponivel()) {
+            publicacaoAEmprestar.setDisponivel(false);
+            return "Retirado para empréstimo:  " + publicacaoAEmprestar;
+        }
+        return "A publicação está indisponível para empréstimo";
     }
 
-    public String devolucaoPublicacao(String titulo, String autor) {
-        Publicacao publicacaoParaDevolver = publicacoesRetiradas.stream()
+    public String devolucaoPublicacao(String titulo, String autor) throws Exception {
+        Publicacao publicacaEmDevolucao = get(titulo, autor);
+        if (!publicacaEmDevolucao.isDisponivel()) {
+            publicacaEmDevolucao.setDisponivel(true);
+            return "Devolução concluída com sucesso";
+        }
+        return "Não conseguimos registrar a sua devolução";
+    }
+
+    private Publicacao get(String titulo, String autor) throws Exception {
+        Publicacao publicacaoRetornada = publicacoesRegistradasNoSistema.stream()
                 .filter(publicacao -> publicacao.getTitulo().equals(titulo)
                         && publicacao.getAutores().contains(autor))
-                .collect(Collectors.toList())
-                .get(0);
+                .collect(Collectors.toList()).get(0);
 
-        publicacoesRetiradas.remove(publicacaoParaDevolver);
-        publicacoesEmEstoque.add(publicacaoParaDevolver);
-
-        return "Devolução concluída com sucesso";
+        if (publicacaoRetornada == null){
+            throw new Exception("Publicação não encontrada no sistema");
+        }
+        return publicacaoRetornada;
     }
 
 }
