@@ -1,4 +1,4 @@
-package com.project.gerenciadorbiblioteca;
+package br.com.project.gerenciadorbiblioteca;
 
 public class Main {
 
