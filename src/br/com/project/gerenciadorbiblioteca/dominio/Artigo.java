@@ -1,7 +1,5 @@
 package br.com.project.gerenciadorbiblioteca.dominio;
 
-import java.util.Set;
-
 public class Artigo extends Publicacao {
 
     private String areaDePesquisa;
@@ -20,8 +18,6 @@ public class Artigo extends Publicacao {
 
     @Override
     public String toString() {
-        return "Artigo{" +
-                "areaDePesquisa='" + areaDePesquisa + '\'' +
-                '}';
+        return "Artigo{" + super.toString();
     }
 }

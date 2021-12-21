@@ -61,8 +61,7 @@ public class Publicacao implements Comparable<Publicacao> {
 
     @Override
     public String toString() {
-        return "Publicacao{" +
-                "titulo='" + titulo + '\'' +
+        return "titulo='" + titulo + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", autores=" + autores +
                 ", quantPaginas=" + quantPaginas +

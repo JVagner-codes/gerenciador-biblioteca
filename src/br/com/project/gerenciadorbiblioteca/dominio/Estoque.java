@@ -16,7 +16,7 @@ public class Estoque {
         this.publicacoesRegistradasNoSistema.add(publicacao);
     }
 
-    public String retirarPorEmprestimo(String titulo, String autor) throws Exception {
+    public String retirarPorEmprestimo(String titulo, String autor) {
         Publicacao publicacaoAEmprestar = get(titulo, autor);
         if (publicacaoAEmprestar.isDisponivel()) {
             publicacaoAEmprestar.setDisponivel(false);
@@ -25,7 +25,7 @@ public class Estoque {
         return "A publicação está indisponível para empréstimo";
     }
 
-    public String devolucaoPublicacao(String titulo, String autor) throws Exception {
+    public String devolucaoPublicacao(String titulo, String autor) {
         Publicacao publicacaEmDevolucao = get(titulo, autor);
         if (!publicacaEmDevolucao.isDisponivel()) {
             publicacaEmDevolucao.setDisponivel(true);
@@ -34,16 +34,22 @@ public class Estoque {
         return "Não conseguimos registrar a sua devolução";
     }
 
-    private Publicacao get(String titulo, String autor) throws Exception {
-        Publicacao publicacaoRetornada = publicacoesRegistradasNoSistema.stream()
+    public boolean estaDisponivel (String titulo, String autor) {
+        Publicacao publicacao = get(titulo, autor);
+        return publicacao.isDisponivel();
+    }
+
+    public List<Publicacao> getPublicacoesRegistradasNoSistema() {
+        return publicacoesRegistradasNoSistema;
+    }
+
+    private Publicacao get(String titulo, String autor) {
+        return publicacoesRegistradasNoSistema.stream()
                 .filter(publicacao -> publicacao.getTitulo().equals(titulo)
                         && publicacao.getAutores().contains(autor))
                 .collect(Collectors.toList()).get(0);
-
-        if (publicacaoRetornada == null){
-            throw new Exception("Publicação não encontrada no sistema");
-        }
-        return publicacaoRetornada;
     }
+
+
 
 }
